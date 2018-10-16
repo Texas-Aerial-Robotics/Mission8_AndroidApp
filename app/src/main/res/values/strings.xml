@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Eight</string>
+    <string name="send_button_text">Send new line</string>
+    <string name="record_button_text">Record Audio Command</string>
 </resources>
