@@ -31,9 +31,7 @@ class SocketViewModelProvider(private val server: Boolean, private val connectio
 }
 
 class SocketViewModel(private val isServer: Boolean, private val connections: Int) : ViewModel() {
-    val data by lazy {
-        MutableLiveData<Int?>()
-    }
+    val data = MutableLiveData<Int?>()
 
     private var launched = false
     private val termCondition = ConditionVariable(false)
@@ -90,6 +88,7 @@ class SocketViewModel(private val isServer: Boolean, private val connections: In
             if (!launched) {
                 launched = true
                 sockth = thread(start = true) {
+                    // TODO what if the server socket is broken?
                     val srvSock = if (isServer) ServerSocket(portno, connections, inet6) else null
                     val sockths: List<Thread> = (0 until connections).map { thread(start = true) {
                         while (!Thread.interrupted()) {
